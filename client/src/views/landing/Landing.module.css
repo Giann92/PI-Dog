@@ -1,0 +1,20 @@
+.btn {
+    background-color: #FFCB05; /* Color de fondo */
+    color: #000000; /* Color del texto */
+    font-family: Arial, sans-serif; /* Fuente del texto */
+    font-size: 18px; /* Tamaño del texto */
+    border: none; /* Borde del botón */
+    padding: 10px 20px; /* Espaciado interno del botón */
+    border-radius: 5px; /* Radio de los bordes */
+    text-transform: uppercase; /* Transformación del texto a mayúsculas */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+   
+  }
+  
+  .btn:hover {
+    background-color: #F7D02C; /* Color de fondo al pasar el mouse */
+    cursor: pointer; /* Cambio de cursor al pasar el mouse */
+  }

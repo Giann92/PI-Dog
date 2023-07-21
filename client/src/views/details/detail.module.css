@@ -1,0 +1,70 @@
+.container {
+ 
+  height: 100%;
+
+
+}
+
+.dogDetail {
+  border: 6px solid #272727;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(175, 175, 175, 0.2);
+  height: 100%;
+
+}
+
+.dogDetailName {
+  font-family: "arial", cursive;
+  font-size: 54px;
+  color: #ddd7d7;
+  text-shadow: 2px 2px 4px rgb(41, 61, 214);
+  margin-top: -10px;
+}
+
+.nameTemperament {
+  font-family: "PokemonFont", cursive;
+  font-size: 24px;
+  text-shadow: 2px 2px 4px rgb(41, 61, 214);
+  color: #ddd7d7;
+  margin-top: -10px;
+
+}
+
+.dogDetail__name {
+  font-size: 24px;
+  font-weight: bold;
+  color: #b6adad;
+  margin-bottom: 10px;
+}
+
+.dogDetail__image {
+  float: left;
+  width: 300px;
+  height: 300px;
+  margin-bottom: 20px;
+  margin-right: 20px;
+}
+div>a {
+  color: #ffcc00;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+div>a:hover {
+  color: #ff9900;
+}
+
+/* Estilos para el botón de cierre */
+.dogDetail__closeBtn {
+  background-color: #ff3333;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.dogDetail__closeBtn:hover {
+  background-color: #cc0000;
+}

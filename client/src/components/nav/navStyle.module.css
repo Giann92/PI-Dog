@@ -1,0 +1,54 @@
+.header {
+  overflow: hidden;
+  height: 70px;
+  background-color: black;
+}
+
+.transparent-bg {
+  background-color: transparent;
+}
+
+.logo {
+  width: 140px;
+  height: 70px;
+  background-color: transparent;
+  float: left;
+  margin-top: 25px;
+  margin-left: 10px;
+  margin-bottom: 30px;
+  transform: translate(0px, -18px);
+}
+
+.created {
+  float: right;
+  margin-top: 15px;
+  margin-right: 20px;
+  font-size: 35px;
+  color: rgb(152, 218, 0);
+  font-family: 'Rancho', cursive;
+  transition-duration: 0.4s;
+}
+
+.created:hover {
+  color: rgba(196, 168, 224, 0.938);
+}
+
+.btn {
+  background-color: blue;
+  border: 1px solid #ccc;
+  padding: 8px 16px;
+  font-size: 18px;
+  text-transform: uppercase;
+  color: yellow;
+  font-family: "PokemonFont", cursive;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: blue;
+}
+
+.btn:active {
+  background-color: blue;
+}

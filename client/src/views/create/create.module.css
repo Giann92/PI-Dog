@@ -1,0 +1,56 @@
+.form-container {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.form-container h2 {
+  margin-bottom: 20px;
+}
+
+.form-container label {
+  display: block;
+  margin-bottom: 10px; /* Cambia el valor del margen inferior según tus necesidades */
+  font-weight: bold;
+}
+
+.form-container input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+}
+
+.form-container .submit-button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.form-container .submit-button:hover {
+  background-color: #45a049;
+}
+
+.error-message {
+  font-size: 20px;
+  color: #ff0113;
+}
+
+.backBtn {
+  border: none;
+  background-color: darkblue;
+  border-radius: 5px;
+  font-size: 16px;
+  position: absolute;
+  top: 50px;
+  right: 15px;
+}
+
+.link {
+  text-decoration: none;
+  color: yellow;
+}

@@ -1,0 +1,107 @@
+.master {
+  width: 300px;
+  height: 400px;
+  /* max-height: 400px; */
+  background-color: rgb(251, 251, 251);
+  /* margin: 50px; */
+  display: inline-block;
+  margin: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  -webkit-box-shadow: inset -1px 3px 8px 5px #1f88ff00, 2px 5px 16px 0px #0B325E, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+  box-shadow: inset -1px 3px 8px 5px #1f88ff00, 2px 5px 16px 0px #0B325E, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+
+
+  /* -webkit-box-shadow: -10px 0px 13px -7px #525050, 10px 0px 13px -7px #525050, 5px 5px 15px 5px rgba(145, 145, 145, 0);
+  box-shadow: -10px 0px 13px -7px #525050, 10px 0px 13px -7px #525050, 5px 5px 15px 5px rgba(145, 145, 145, 0); */
+
+}
+
+.master img {
+  border-radius: 5px 5px 0 0;
+  width: 300px;
+  height: 250px;
+}
+
+.cardDatos {
+  margin: 2px 10px;
+  /* background-color: rgba(127, 255, 212, 0.144); */
+}
+
+.contTitulo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  max-lines: 1;
+}
+
+
+
+.pesoAndIcon {
+  display: flex;
+  justify-content: space-between;
+}
+
+.iconFav {
+  font-size: calc(1em + 1vw);
+  color: black;
+}
+
+.iconFav_delete {
+  font-size: calc(1em + 1vw);
+  color: red;
+}
+
+.cardDatos .contTitulo .cardNombre {
+  color: #733ca9;
+  margin: 0;
+  overflow: ellipsis;
+  font-size: calc(1em + 0.6vw);
+  font-weight: 500;
+  display: flex;
+  max-lines: 1;
+  max-height: 40px;
+  overflow: hidden;
+  align-items: left;
+}
+
+.cardDatos .contTitulo .cardNombre p {
+  margin: 5px 2px;
+}
+
+.datos {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+span {
+  font-weight: bold;
+}
+
+.cardDato {
+  color: black;
+  margin: 1px 2px;
+  text-align: left;
+  text-overflow: ellipsis;
+  max-lines: 1;
+  /* text-overflow: clip; */
+}
+
+
+.temperamentos {
+  /* background-color: #733ca9; */
+  word-wrap: break-word;
+  max-height: 60px;
+  text-align: left;
+  overflow: clip;
+  max-lines: 2;
+  margin-bottom: 8px;
+
+}
+
+.temperamentos p {
+  margin: 1px 2px;
+  color: black;
+
+}
