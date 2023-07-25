@@ -1,20 +1,22 @@
 import axios from "axios";
-import { GET_DOGS,
-        GET_TEMPERAMENTS,
-        ORDER_BY_WEIGHT,
-        GET_DOGS_BY_ID,
-        GET_DOGS_BY_NAME,
-        GET_DETAIL,
-        ADD_DOGS,
-        FILTER_TEMPERAMENTS,
-        SORT,
-        FILTER_CREATE} from "./types";
+import {
+    GET_DOGS,
+    GET_TEMPERAMENTS,
+    ORDER_BY_WEIGHT,
+    GET_DOGS_BY_ID,
+    GET_DOGS_BY_NAME,
+    GET_DETAIL,
+    ADD_DOGS,
+    FILTER_TEMPERAMENTS,
+    SORT,
+    FILTER_CREATE
+} from "./types";
 
-export function getDogs(){
-    return async function(dispatch){
+export function getDogs() {
+    return async function (dispatch) {
         try {
-            const response =  await axios.get('http://localhost:3001/dogs');
-            const dogs=response.data;
+            const response = await axios.get('http://localhost:3001/dogs');
+            const dogs = response.data;
             console.log(dogs);
             return dispatch({
                 type: GET_DOGS,
@@ -26,11 +28,11 @@ export function getDogs(){
     }
 }
 
-export function getTemperaments(){
-    return async function(dispatch){
+export function getTemperaments() {
+    return async function (dispatch) {
         try {
-            const response =  await axios.get('http://localhost:3001/temperaments');
-            const temperaments  =response.data;
+            const response = await axios.get('http://localhost:3001/temperaments');
+            const temperaments = response.data;
             console.log(temperaments);
             return dispatch({
                 type: GET_TEMPERAMENTS,
@@ -77,11 +79,12 @@ export function getTemperaments(){
 //         }
 //     }
 // }
-export function getDogById(id){
-    return async function(dispatch){
+export function getDogById(id) {
+    return async function (dispatch) {
         try {
-            const response =  await axios.get(`/dogs/${id}`);
-            const dogs=response.data;
+            const response = await axios.get(`/dogs/${id}`);
+            const dogs = response.data;
+            console.log(dogs);
             return dispatch({
                 type: GET_DOGS_BY_ID,
                 payload: dogs,
@@ -91,50 +94,52 @@ export function getDogById(id){
         }
     }
 }
-export function getDetail(id) {
+export const getDetail = (id) => {
     return async function (dispatch) {
-      try {
-        const response = await axios.get(`http://localhost:3001/dogs/${id}`);
-        const dog = response.data; // Assuming the response.data contains the details of a single dog
-        return dispatch({
-          type: GET_DETAIL,
-          payload: dog, // Assuming 'payload' should contain the details of a single dog
-        });
-      } catch (error) {
-        console.log('Error fetching dog details', error);
-      }
-    };
-  }
-
-export function getDogByName(name){
-    return async function(dispatch){
         try {
-            const response =  await axios.get(`http://localhost:3001/dogs?name=${name}`);
-            const dogs  =response.data;
+        const response = await axios.get(`http://localhost:3001/dogs/${encodeURIComponent(id)}`);
+         const dog = response.data;
+            console.log(dog);
+            dispatch({
+            type: GET_DETAIL,
+            payload: dog,
+            });
+        } 
+    catch (error) {
+    console.log('Error fetching dog details', error);
+    }
+      };
+    };
+
+export function getDogByName(name) {
+    return async function (dispatch) {
+        try {
+            const response = await axios.get(`http://localhost:3001/dogs?name=${name}`);
+            const dogs = response.data;
             return dispatch({
                 type: GET_DOGS_BY_NAME,
                 payload: dogs,
             });
         } catch (error) {
-            console.log('Error fetching dogs', error);
+           alert('No se encontro perrito');
         }
     }
 }
 export function addDog(payload) {
-    return async function(dispatch) {
-      try {
-        const response = await axios.post('http://localhost:3001/dogs', payload);
-        console.log(response.data);
-        dispatch({
-          type: ADD_DOGS,
-          payload: response.data,
-        });
-      } catch (error) {
-        console.log('Error fetching dogs', error);
-      }
+    return async function (dispatch) {
+        try {
+            const response = await axios.post('http://localhost:3001/dogs', payload);
+            console.log(response.data);
+            dispatch({
+                type: ADD_DOGS,
+                payload: response.data,
+            });
+        } catch (error) {
+            console.log('Error fetching dogs', error);
+        }
     };
-  }
-  
+}
+
 export function filterDogByTemperaments(payload) {
     return {
         type: FILTER_TEMPERAMENTS,

@@ -54,20 +54,21 @@ const rootReducer = (state = initialState, action)=> {
                   dogs: action.payload === "Todos" ? state.allDogs : filterCreate
                 };
             case SORT:
-                let orderName=[...state.dogs];
-                orderName = orderName.sort((a,b)=>{
-                    if(a.name < b.name){
-                        return action.payload === "ASCENDENTE" ? -1 : 1;
-                    }
-                    if(a.name > b.name){
-                        return action.payload === "DESCENDENTE" ? 1 : -1;
-                    }
-                    return 0;
-                })
-                return{
-                    ...state,
-                    dogs: action.payload === "FILTRO" ? state.allDogs : orderName
+                let orderName = [...state.allDogs];
+                orderName = orderName.sort((a, b) => {
+                  if (a.name < b.name) {
+                    return action.payload === "A-Z" ? 1 : -1;
+                  }
+                  if (a.name > b.name) {
+                    return action.payload === "Z-A" ? -1 : 1;
+                  }
+                  return 0;
+                });
+                return {
+                  ...state,
+                  dogs: action.payload === "FILTRO" ? state.allDogs : orderName,
                 };
+          
             case ADD_DOGS:
                 return{
                     ...state,
@@ -77,7 +78,11 @@ const rootReducer = (state = initialState, action)=> {
                     const allDogs = state.allDogs;
                     const filterTemperaments = action.payload === "Todos" ? allDogs : allDogs.filter((el) => {
                       if (Array.isArray(el.temperaments)) {
-                        return el.temperaments.includes(action.payload);
+                        return el.temperaments.some((temperament) => {
+                          // Check if temperament is an object or a string
+                          const temperamentName = typeof temperament === 'object' ? temperament.name : temperament;
+                          return temperamentName === action.payload;
+                        });
                       }
                       return false;
                     });
@@ -86,21 +91,21 @@ const rootReducer = (state = initialState, action)=> {
                       dogs: filterTemperaments,
                     };
                   
-            case ORDER_BY_WEIGHT:
-                let filterWeight = [...state.allDogs];
-                filterWeight = filterWeight.sort((a,b)=>{
-                    if(a.weight > b.weight){
-                        return action.payload === "Mayor Peso" ? -1 : 1;
-                    }
-                    if(a.weight < b.weight){
-                        return action.payload === "Menor peso" ? 1 : -1;
-                    }
-                    return 0;
-                });
-                return {
-                    ...state,
-                    dogs: action.payload === "Peso" ? state.allDogs : filterWeight
-                };
+                    case ORDER_BY_WEIGHT:
+                        let filterWeight = [...state.allDogs];
+                        filterWeight = filterWeight.sort((a, b) => {
+                          if (a.weight > b.weight) {
+                            return action.payload === "Mayor peso" ? -1 : 1;
+                          }
+                          if (a.weight < b.weight) {
+                            return action.payload === "Menor peso" ? 1 : -1;
+                          }
+                          return 0;
+                        });
+                        return {
+                          ...state,
+                          dogs: action.payload === "Peso" ? state.allDogs : filterWeight,
+                        };
         default: return state;
     }
 

@@ -15,7 +15,7 @@ const getApiInfo = async () => {
         image: e.image?.url,
         height: `${e.height.metric} cm`,
         weight: `${e.weight.metric} kgs`,
-        life_span:`${e.life_span.metric} years`,
+        life:`${e.life_span}`,
         temperament: e.temperament
       };
     });
@@ -69,15 +69,15 @@ const getAllDogs = async () => {
 
 const getDogApiById = async (id) => {
   try {
-    const response = await axios.get(`https://api.thedogapi.com/v1/breeds/${id}?api_key=${API_KEY}`);
-    const apiId = response.data;
+    const apiId = (await axios.get(`https://api.thedogapi.com/v1/breeds/${id}?api_key=${API_KEY}`)).data;
+    
     return {
       id: apiId.id,
       name: apiId.name,
       image: apiId.image?.url,
       height: `${apiId.height.metric} cm`,
       weight: `${apiId.weight.metric} kgs`,
-      life_span: `${apiId.life_span.metric} years`,
+      life: `${apiId.life_span}`,
       temperament: apiId.temperament,
     };
   } catch (error) {
@@ -123,10 +123,27 @@ const getDogDbByName = async (name) => {
     throw error;
   }
 };
+const getDogDbById = async (id) => {
+try {
+  const dog = await Dog.findByPk(id, {include: Temperament});
+  const dogDb = {
+    id: dog.id,
+    name: dog.name,
+    image: dog.image?.url,
+    temperament: dog.temperament,
+    weight: dog.weight,
+    height: dog.height,
+  }
+  return dogDb;
+} catch (error) {
+  throw error;
+}
+}
 
 module.exports = {
   getAllDogs,
   getDogApiById,
   getDogApiByName,
   getDogDbByName,
+  getDogDbById,
 };

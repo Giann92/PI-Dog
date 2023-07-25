@@ -1,4 +1,4 @@
-const { getDogApiById, getDogApiByName, getDogDbByName, getAllDogs } = require('../controllers/getDogs');
+const { getDogApiById, getDogApiByName, getDogDbByName, getAllDogs, getDogDbById } = require('../controllers/getDogs');
 const { Dog, Temperament } = require('../db');
 
 const getDogHandler = async (req, res) => {
@@ -29,26 +29,30 @@ const getDogIdHandler = async (req, res) => {
   const { id } = req.params;
   
   if (id) {
-    try {
-      const dogId = await getDogApiById(id);
-      
-      if (dogId) {
-        res.status(200).json(dogId);
-      } else {
-        res.status(404).json('No se encontró el perro');
-      }
-    } catch (error) {
-      res.status(400).json('ID de raza de perro no proporcionado');
-      console.log({ error: error.message });
+    
+   const dogId = await getDogApiById(id);
+
+    if(!dogId){
+      dogId = await getDogDbById(id);
     }
-  } else {
-    res.status(400).json('ID de raza de perro no proporcionado');
-  }
-};
+    if(dogId){
+      res.status(200).json(dogId);
+    } else{
+      res.status(400).json('No se encontro un Dog con ese ID')
+    }
+    }
+  };
 
 const createDogs = async (req, res) => {
   try {
-    const { name, height_min, height_max, weight_min, weight_max, life_span_min, life_span_max, temperaments } = req.body;
+    const { name, height_min, 
+      height_max, 
+      weight_min, 
+      weight_max, 
+      life_span_min, 
+      life_span_max, 
+      temperaments,
+      image} = req.body;
     const temperamentsArray = Array.isArray(temperaments) ? temperaments : [temperaments];
 
     const newDog = await Dog.create({
@@ -56,6 +60,7 @@ const createDogs = async (req, res) => {
       height: `${height_min} - ${height_max} cm`,
       weight: `${weight_min} - ${weight_max} kg`,
       life: `${life_span_min} - ${life_span_max} years`,
+      image,
     });
 
     const dogTemperaments = await Temperament.findAll({

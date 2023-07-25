@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDogs, Sort, filterCreated, filterDogByTemperaments, getTemperaments } from '../../redux/actions';
+import { getDogs, Sort, filterCreated, filterDogByTemperaments, getTemperaments, orderByWeight } from '../../redux/actions';
 import DogCard from '../../components/card/DogCard';
 import s from './home.module.css';
 import NavBar from '../../components/nav/NavBar';
@@ -25,18 +25,19 @@ function Home() {
 
   function handleFilterCreated(e) {
     dispatch(filterCreated(e.target.value));
-    setCurrentPage(1); // Reset currentPage when applying the filter
+    setCurrentPage(1); 
   }
-
   function onSelectsChange(e) {
     dispatch(Sort(e.target.value));
-    setCurrentPage(1); // Reset currentPage when applying the filter
+    setCurrentPage(1);
   }
-
+function handleOrderByWeight(e){
+  dispatch(orderByWeight(e.target.value))
+}
   function handleFilterTemperament(e) {
     e.preventDefault();
     dispatch(filterDogByTemperaments(e.target.value));
-    setCurrentPage(1); // Reset currentPage when applying the filter
+    setCurrentPage(1); 
   }
 
   useEffect(() => {
@@ -52,8 +53,13 @@ function Home() {
         <div>
           <select name="select" onChange={onSelectsChange} className="a-z">
             <option value="Filtro"> A-Z:</option>
-            <option value="ASCENDENTE">Ascendente</option>
-            <option value="DESCENDENTE">Descendente</option>
+            <option value="A-Z">Ascendente</option>
+            <option value="Z-A">Descendente</option>
+          </select>
+          <select name="selects" onChange={handleOrderByWeight} className="Peso">
+            <option value="Peso">Peso</option>
+            <option value="Mayor peso">Menor peso</option>
+            <option value="Menor peso">Mayor peso</option>
           </select>
           <select onChange={handleFilterCreated}>
             <option value="Todos"> Todos </option>
@@ -82,7 +88,7 @@ function Home() {
                   <Link key={el.id} to={`/dogs/${el.id}`}>
 
                     <DogCard
-                      key={el.id}
+                   
                       name={el.name}
                       image={el.image}
                       weight={el.weight}
