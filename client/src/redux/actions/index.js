@@ -9,7 +9,7 @@ import {
     ADD_DOGS,
     FILTER_TEMPERAMENTS,
     SORT,
-    FILTER_CREATE
+    FILTER_CREATED
 } from "./types";
 
 export function getDogs() {
@@ -96,35 +96,38 @@ export function getDogById(id) {
 }
 export const getDetail = (id) => {
     return async function (dispatch) {
-        try {
+      try {
         const response = await axios.get(`http://localhost:3001/dogs/${encodeURIComponent(id)}`);
-         const dog = response.data;
-            console.log(dog);
-            dispatch({
-            type: GET_DETAIL,
-            payload: dog,
-            });
-        } 
-    catch (error) {
-    console.log('Error fetching dog details', error);
-    }
-      };
+        const dog = response.data;
+        console.log(dog);
+        dispatch({
+          type: GET_DETAIL,
+          payload: dog,
+        });
+      } catch (error) {
+        console.log('Error fetching dog details', error);
+      }
     };
+  };
+  
 
-export function getDogByName(name) {
+  export function getDogByName(name) {
     return async function (dispatch) {
-        try {
-            const response = await axios.get(`http://localhost:3001/dogs?name=${name}`);
-            const dogs = response.data;
-            return dispatch({
-                type: GET_DOGS_BY_NAME,
-                payload: dogs,
-            });
-        } catch (error) {
-           alert('No se encontro perrito');
-        }
+      try {
+        const response = await axios.get(`http://localhost:3001/dogs?name=${name}`);
+        const dogs = response.data;
+        console.log(dogs);
+        return dispatch({
+          type: GET_DOGS_BY_NAME,
+          payload: dogs,
+        });
+      } catch (error) {
+        alert('No se encontro perrito');
+        return []; // Retorna un array vacío en caso de que el perro no sea encontrado
+      }
     }
-}
+  }
+  
 export function addDog(payload) {
     return async function (dispatch) {
         try {
@@ -156,7 +159,7 @@ export function Sort(order) {
 
 export function filterCreated(payload) {
     return {
-        type: FILTER_CREATE,
+        type: FILTER_CREATED,
         payload,
     }
 }

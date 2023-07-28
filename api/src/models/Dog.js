@@ -13,9 +13,16 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       autoIncrement: true,
     },
-    imagen: {
-      type: DataTypes.STRING,
-
+    image: {
+      type: DataTypes.BLOB,
+      get() {
+        if (this.getDataValue('image')) {
+          const buffer = this.getDataValue('image');
+          const base64Image = buffer.toString('base64');
+          return `data:image/jpeg;base64,${base64Image}`;
+        }
+        return null;
+      },
     },
     name: {
       type: DataTypes.STRING,

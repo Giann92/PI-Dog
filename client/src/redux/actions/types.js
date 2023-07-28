@@ -7,5 +7,5 @@ export const GET_DETAIL = 'GET_DETAIL';
 export const ADD_DOGS = 'ADD_DOGS';
 export const FILTER_TEMPERAMENTS = 'FILTER_TEMPERAMENTS';
 export const SORT = 'SORT';
-export const FILTER_CREATE = 'FILTER_CREATE';
+export const FILTER_CREATED = 'FILTER_CREATED';
 export const ORDER_BY_WEIGHT = 'ORDER_BY_WEIGHT';

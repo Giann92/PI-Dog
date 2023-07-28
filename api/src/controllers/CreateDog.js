@@ -3,10 +3,10 @@ const { Dog, Temperament } = require("../db");
 
 
 
-const createDog = async (name, height_min, height_max, weight_min, weight_max, life, temperaments) => {
+const createDog = async (name, height_min, height_max, weight_min, weight_max, life, temperaments, image) => {
     try {
         const existingTemperaments = await Temperament.findOne({ where: { name: temperaments } });
-
+   
         if (!existingTemperaments) {
             throw new error('El temperamento no existe');
         }

@@ -27,21 +27,31 @@ const getDogHandler = async (req, res) => {
 
 const getDogIdHandler = async (req, res) => {
   const { id } = req.params;
-  
-  if (id) {
-    
-   const dogId = await getDogApiById(id);
 
-    if(!dogId){
-      dogId = await getDogDbById(id);
+  if (id) {
+    // Verificamos si el ID es una cadena de caracteres (UUID)
+    const isUuid = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(id);
+
+    if (isUuid) {
+      // Si es una cadena UUID, buscar en la base de datos
+      const dogId = await getDogDbById(id);
+      if (dogId) {
+        res.status(200).json(dogId);
+      } else {
+        res.status(400).json('No se encontró un Dog con ese ID');
+      }
+    } else {
+      // Si no es una cadena UUID, buscar en la API
+      const dogId = await getDogApiById(id);
+      if (dogId) {
+        res.status(200).json(dogId);
+      } else {
+        res.status(400).json('No se encontró un Dog con ese ID');
+      }
     }
-    if(dogId){
-      res.status(200).json(dogId);
-    } else{
-      res.status(400).json('No se encontro un Dog con ese ID')
-    }
-    }
-  };
+  }
+};
+
 
 const createDogs = async (req, res) => {
   try {
@@ -54,13 +64,13 @@ const createDogs = async (req, res) => {
       temperaments,
       image} = req.body;
     const temperamentsArray = Array.isArray(temperaments) ? temperaments : [temperaments];
-
+    
     const newDog = await Dog.create({
       name,
       height: `${height_min} - ${height_max} cm`,
       weight: `${weight_min} - ${weight_max} kg`,
       life: `${life_span_min} - ${life_span_max} years`,
-      image,
+      image: image,
     });
 
     const dogTemperaments = await Temperament.findAll({

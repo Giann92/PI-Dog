@@ -47,7 +47,7 @@ const AddDogsForm = () => {
             [e.target.name]: '',
         }));
     }
-    const handleImageUpload = (e) => {
+    const   handleImageUpload = (e) => {
         const file = e.target.files[0];
         setFormData((prevFormData) => ({
             ...prevFormData,

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch,} from "react-redux";
 import { getDogByName } from "../../redux/actions";
 import s from './searchStyle.module.css';
@@ -6,7 +6,15 @@ import s from './searchStyle.module.css';
 export default function SearchBar() {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
-  const [dogFound, setDogFound] = useState(true); // State to track whether the dog is found or not
+  const [dogFound, setDogFound] = useState(true);
+  const isMountedRef = useRef(true);
+
+  useEffect(() => {
+    return () => {
+      // El componente se está desmontando, actualizamos el estado de montaje a falso.
+      isMountedRef.current = false;
+    };
+  }, []);
 
   const handleInputChange = (e) => {
     e.preventDefault();
@@ -16,16 +24,22 @@ export default function SearchBar() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (name !== '') {
-      const response = await dispatch(getDogByName(name));
-      if (response === "Dog not found") {
-        setDogFound(false);
-      } else {
-        setDogFound(true);
+      try {
+        const response = await dispatch(getDogByName(name));
+        if (isMountedRef.current) {
+          if (response === "Dog not found") {
+            setDogFound(false);
+          } else {
+            setDogFound(true);
+          }
+        }
+      } catch (error) {
+        console.log(error);
+        // Manejo del error
       }
       setName("");
     }
   };
-
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -38,7 +52,9 @@ export default function SearchBar() {
         />
         <button className={s.boton} type="submit">Buscar</button>
       </form>
-      {!dogFound && <p>No se encontró perro con ese nombre.</p>}
+      {!dogFound && <p key="not-found-message">No se encontró perro con ese nombre.</p>}
     </div>
   );
 }
+
+

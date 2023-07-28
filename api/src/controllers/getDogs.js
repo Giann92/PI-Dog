@@ -1,5 +1,6 @@
 require('dotenv').config();
 const axios = require('axios');
+const uuidValidate = require('uuid-validate');
 const { Dog, Temperament } = require('../db');
 const { API_KEY } = process.env;
 
@@ -15,7 +16,7 @@ const getApiInfo = async () => {
         image: e.image?.url,
         height: `${e.height.metric} cm`,
         weight: `${e.weight.metric} kgs`,
-        life:`${e.life_span}`,
+        life: `${e.life_span}`,
         temperament: e.temperament
       };
     });
@@ -37,10 +38,12 @@ const getDbInfo = async () => {
         },
       ],
     });
-    return result.map((dog) => {
+
+    const dogsInfo = result.map((dog) => {
+      const imageBase64 = dog.image;
       return {
         id: dog.id,
-        image: dog.img,
+        image:imageBase64,
         name: dog.name,
         temperament: dog.temperaments.map((temperament) => temperament.name).join(', '),
         life_span: dog.life_span,
@@ -49,11 +52,17 @@ const getDbInfo = async () => {
         createdinDb: true,
       };
     });
+
+    return dogsInfo;
+
   } catch (error) {
     console.log('Error en la consulta a la base de datos', error);
     throw error;
   }
 };
+
+
+
 
 const getAllDogs = async () => {
   try {
@@ -69,16 +78,28 @@ const getAllDogs = async () => {
 
 const getDogApiById = async (id) => {
   try {
-    const apiId = (await axios.get(`https://api.thedogapi.com/v1/breeds/${id}?api_key=${API_KEY}`)).data;
-    
+    const apiData = (await axios.get(`https://api.thedogapi.com/v1/breeds/?api_key=${API_KEY}`));
+
+    if (!Array.isArray(apiData.data)) {
+      throw new Error('API data format is incorrect');
+    }
+
+    const dogFilterId = apiData.data.filter(dog => parseInt(dog.id) === parseInt(id));
+
+    if (dogFilterId.length === 0) {
+      throw new Error('Dog not found');
+    }
+
+    const dogData = dogFilterId[0];
+
     return {
-      id: apiId.id,
-      name: apiId.name,
-      image: apiId.image?.url,
-      height: `${apiId.height.metric} cm`,
-      weight: `${apiId.weight.metric} kgs`,
-      life: `${apiId.life_span}`,
-      temperament: apiId.temperament,
+      id: dogData.id,
+      name: dogData.name,
+      image: dogData.image.url,
+      height: `${dogData.height.metric} cm`,
+      weight: `${dogData.weight.metric} kgs`,
+      life: dogData.life_span,
+      temperament: dogData.temperament,
     };
   } catch (error) {
     console.log('Error al obtener el perro por ID', error);
@@ -90,9 +111,9 @@ const getDogApiByName = async (name) => {
   try {
     const response = await axios.get(`https://api.thedogapi.com/v1/breeds/search?q=${name}&api_key=${API_KEY}`);
     const apiDogs = response.data;
-    
+
     const matchedDogs = apiDogs.filter((dog) => dog.name.toLowerCase().includes(name.toLowerCase()));
-    
+
     if (matchedDogs.length > 0) {
       const dogList = await Promise.all(matchedDogs.map((dog) => getDogApiById(dog.id)));
       return dogList;
@@ -124,21 +145,39 @@ const getDogDbByName = async (name) => {
   }
 };
 const getDogDbById = async (id) => {
-try {
-  const dog = await Dog.findByPk(id, {include: Temperament});
-  const dogDb = {
-    id: dog.id,
-    name: dog.name,
-    image: dog.image?.url,
-    temperament: dog.temperament,
-    weight: dog.weight,
-    height: dog.height,
+  try {
+    if (uuidValidate(id)) {
+      const dog = await Dog.findOne({
+        where: {
+          id: id
+        },
+        include: Temperament
+      });
+console.log(dog);
+      if (dog) {
+       
+        const imageBase64 = dog.image;
+        const dogDb = {
+          id: dog.idDog,
+          name: dog.name,
+          image:imageBase64,
+          temperament: dog.temperaments.map((temperament) => temperament.name).join(', '),
+          weight: dog.weight,
+          height: dog.height,
+          life: dog.life,
+        };
+        return dogDb;
+      }
+    }
+
+    // Si el ID no es un UUID válido o no se encontró en la base de datos,
+    // continuar buscando en la API
+    return null;
+  } catch (error) {
+    throw error;
   }
-  return dogDb;
-} catch (error) {
-  throw error;
-}
-}
+};
+
 
 module.exports = {
   getAllDogs,
