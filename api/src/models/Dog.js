@@ -28,7 +28,7 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    height:{
+    height: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -41,7 +41,11 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    createdInDb:{
+    descripcion: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    createdInDb: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: true

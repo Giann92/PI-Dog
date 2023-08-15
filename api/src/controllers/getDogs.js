@@ -49,6 +49,7 @@ const getDbInfo = async () => {
         life_span: dog.life_span,
         weight: dog.weight,
         origin: dog.origin,
+        descripcion: dog.descripcion,
         createdinDb: true,
       };
     });
@@ -100,6 +101,7 @@ const getDogApiById = async (id) => {
       weight: `${dogData.weight.metric} kgs`,
       life: dogData.life_span,
       temperament: dogData.temperament,
+      descripcion: dogData.descripcion,
     };
   } catch (error) {
     console.log('Error al obtener el perro por ID', error);
@@ -165,6 +167,7 @@ console.log(dog);
           weight: dog.weight,
           height: dog.height,
           life: dog.life,
+          descripcion: dog.descripcion,
         };
         return dogDb;
       }

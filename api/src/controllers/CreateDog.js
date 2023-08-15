@@ -3,7 +3,7 @@ const { Dog, Temperament } = require("../db");
 
 
 
-const createDog = async (name, height_min, height_max, weight_min, weight_max, life, temperaments, image) => {
+const createDog = async (name, height_min, height_max, weight_min, weight_max, life, temperaments, image, descripcion) => {
     try {
         const existingTemperaments = await Temperament.findOne({ where: { name: temperaments } });
    
@@ -17,6 +17,7 @@ const createDog = async (name, height_min, height_max, weight_min, weight_max, l
             weight: `${weight_min}-${weight_max}`,
             life,
             image,
+            descripcion,
 
         });
 

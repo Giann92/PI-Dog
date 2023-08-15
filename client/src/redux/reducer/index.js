@@ -8,7 +8,8 @@ import {
   FILTER_TEMPERAMENTS,
   SORT,
   FILTER_CREATED,
-  ORDER_BY_WEIGHT
+  ORDER_BY_WEIGHT,
+  SET_LOADING,
 } from "../actions/types";
 
 const initialState = {
@@ -16,6 +17,7 @@ const initialState = {
   allDogs: [],
   detail: [],
   temperaments: [],
+  loading: false,
 
 }
 
@@ -59,7 +61,7 @@ const rootReducer = (state = initialState, action) => {
         console.log('All Dogs:', allDogs);
   
         // If the selected payload is "temperaments", show all dogs
-        if (action.payload === "temperaments") {
+        if (action.payload === "Todos") {
           return {
             ...state,
             dogs: allDogs,
@@ -133,7 +135,12 @@ const rootReducer = (state = initialState, action) => {
             ...state,
             dogs: filteredByWeight,
           };
-    
+          case SET_LOADING:
+            console.log(action.payload);
+            return{
+                ...state,
+                loading: action.payload
+            }
         default:
           return state;
       }

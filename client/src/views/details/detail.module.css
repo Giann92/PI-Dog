@@ -4,32 +4,31 @@
 
 
 }
-
 .dogDetail {
-  border: 6px solid #272727;
-  border-radius: 10px;
-  box-shadow: 0 0 5px rgba(175, 175, 175, 0.2);
-  height: 100%;
 
 }
 
 .dogDetailName {
-  font-family: "arial", cursive;
+  font-family: "PokemonFont", cursive;
   font-size: 54px;
   color: #ddd7d7;
   text-shadow: 2px 2px 4px rgb(41, 61, 214);
   margin-top: -10px;
 }
 
-.nameTemperament {
+/* .nameTemperament {
   font-family: "PokemonFont", cursive;
-  font-size: 24px;
+  font-size: 20px;
   text-shadow: 2px 2px 4px rgb(41, 61, 214);
   color: #ddd7d7;
   margin-top: -10px;
-
+} */
+.dogDetail__attribute{
+  font-family: Arial;
+  margin-top: 10px;
+  text-align:left;
+  font-size: 18px;
 }
-
 .dogDetail__name {
   font-size: 24px;
   font-weight: bold;
@@ -39,10 +38,19 @@
 
 .dogDetail__image {
   float: left;
-  width: 300px;
-  height: 300px;
+  width: 350px;
+  height: 350px;
+  border: 6px solid black;
   margin-bottom: 20px;
-  margin-right: 20px;
+  margin-right: 10px;
+  margin-left: 20px;
+  margin-top: 2px;
+}
+.mapContainer {
+  float: right; 
+  width: 60%; 
+  margin-left: 20px; 
+  height: 400px; 
 }
 div>a {
   color: #ffcc00;
@@ -62,6 +70,7 @@ div>a:hover {
   border-radius: 4px;
   padding: 8px 16px;
   font-size: 16px;
+  margin-top: 200px;
   cursor: pointer;
 }
 

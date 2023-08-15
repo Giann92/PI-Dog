@@ -9,7 +9,7 @@ const getDogHandler = async (req, res) => {
     if (name) {
       const dogApiName = await getDogApiByName(name.toLowerCase());
       const dogDbName = await getDogDbByName(name.toLowerCase());
-      
+
       if (dogApiName) {
         res.status(200).json(dogApiName);
       } else if (dogDbName) {
@@ -55,22 +55,24 @@ const getDogIdHandler = async (req, res) => {
 
 const createDogs = async (req, res) => {
   try {
-    const { name, height_min, 
-      height_max, 
-      weight_min, 
-      weight_max, 
-      life_span_min, 
-      life_span_max, 
+    const { name, height_min,
+      height_max,
+      weight_min,
+      weight_max,
+      life_span_min,
+      life_span_max,
       temperaments,
-      image} = req.body;
+      image,
+      descripcion } = req.body;
     const temperamentsArray = Array.isArray(temperaments) ? temperaments : [temperaments];
-    
+
     const newDog = await Dog.create({
       name,
       height: `${height_min} - ${height_max} cm`,
       weight: `${weight_min} - ${weight_max} kg`,
       life: `${life_span_min} - ${life_span_max} years`,
       image: image,
+      descripcion: descripcion,
     });
 
     const dogTemperaments = await Temperament.findAll({

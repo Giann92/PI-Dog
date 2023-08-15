@@ -6,9 +6,12 @@ import AddDogsForm from './views/create/CreateForm';
 import Detail from './views/details/Detail';
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 
+axios.defaults.baseURL = "http://localhost:3001/";
 const backgroundImages = {
-  '/': 'https://helios-i.mashable.com/imagery/articles/07CIEf4aHNEhXeK7MSpNYt5/hero-image.fill.size_1248x702.v1648747007.jpg'
+  '/': 'https://helios-i.mashable.com/imagery/articles/07CIEf4aHNEhXeK7MSpNYt5/hero-image.fill.size_1248x702.v1648747007.jpg',
+  '/dogs': 'https://t3.ftcdn.net/jpg/05/52/99/70/360_F_552997034_k5EkYzAnUnZVpnsbuQHz1ue4QJCWdDsV.jpg'
 }
 function App() {
   

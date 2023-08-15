@@ -9,3 +9,4 @@ export const FILTER_TEMPERAMENTS = 'FILTER_TEMPERAMENTS';
 export const SORT = 'SORT';
 export const FILTER_CREATED = 'FILTER_CREATED';
 export const ORDER_BY_WEIGHT = 'ORDER_BY_WEIGHT';
+export const SET_LOADING = 'SET_LOADING';

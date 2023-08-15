@@ -1,6 +1,9 @@
 .form-container {
-  max-width: 400px;
+  max-width: 300px; /* Aumenta el ancho máximo según tus necesidades */
   margin: 0 auto;
+  display: flex; /* Agregado para flexibilidad en el diseño */
+  flex-direction: row; /* Cambiado a 'row' para diseño horizontal */
+  align-items: center; /* Alinea los elementos al centro verticalmente */
 }
 
 .form-container h2 {
@@ -8,17 +11,25 @@
 }
 
 .form-container label {
-  display: block;
-  margin-bottom: 10px; /* Cambia el valor del margen inferior según tus necesidades */
+  display: inline-block; /* Cambia a 'block' si se desea un diseño vertical */
+  margin-bottom: 10px;
   font-weight: bold;
+  width: 150px; /* Ancho fijo para las etiquetas */
 }
 
-.form-container input {
+.form-container input,
+.form-container select,
+.form-container textarea {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 16px;
   outline: none;
+  width: 100%; /* Opcional: Ajusta el ancho de los campos de entrada */
+}
+
+.form-container textarea {
+  resize: vertical; /* Permite ajustar la altura verticalmente */
 }
 
 .form-container .submit-button {
@@ -46,7 +57,7 @@
   border-radius: 5px;
   font-size: 16px;
   position: absolute;
-  top: 50px;
+  top: 75px;
   right: 15px;
 }
 
@@ -54,3 +65,5 @@
   text-decoration: none;
   color: yellow;
 }
+
+

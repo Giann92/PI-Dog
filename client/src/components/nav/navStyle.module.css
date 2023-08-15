@@ -1,6 +1,9 @@
+/* navStyle.module.css */
 .header {
   overflow: hidden;
   height: 70px;
+  background-image: url("https://img.freepik.com/vector-premium/patron-perro-costuras-huellas-pata-huesos-corazones-bolas-textura-pie-gato-patron-huella-perro-huesos-textura-perro-ilustracion-vectorial-dibujada-mano-estilo-garabato-sobre-fondo-blanco_192280-1320.jpg");
+  background-size:contain; /* Ajusta el tamaño de la imagen de fondo para cubrir el elemento */
   background-color: black;
 }
 
@@ -9,7 +12,7 @@
 }
 
 .logo {
-  width: 140px;
+  width: auto;
   height: 70px;
   background-color: transparent;
   float: left;
@@ -52,3 +55,5 @@
 .btn:active {
   background-color: blue;
 }
+
+
