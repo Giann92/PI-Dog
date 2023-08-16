@@ -5,7 +5,7 @@ import s from './create.module.css';
 import { useHistory } from 'react-router-dom';
 import { getTemperaments, addDog } from '../../redux/actions';
 import NavBar from '../../components/nav/NavBar';
-import ImageUploader from 'react-image-upload';
+import BrowseFileUpdate from './BrowseFileUpdate';
 const AddDogsForm = () => {
     const dispatch = useDispatch();
     const history = useHistory();
@@ -49,13 +49,12 @@ const AddDogsForm = () => {
         }));
     }
 
-    const handleImageUpload = (e) => {
-        const file = e.target.files[0];
+    const handleImageUpload = (imageUrl) => {
         setFormData((prevFormData) => ({
             ...prevFormData,
-            image: file,
+            image: imageUrl,
         }));
-    };
+    };;
 
     function validate(data) {
         let errors = {};
@@ -134,135 +133,129 @@ const AddDogsForm = () => {
 
     return (
         <>
-        <NavBar/>
-        <div className={`${s['form-container']}`}>
-            <form onSubmit={handleSubmit}>
-                <h2>Agregar Mascota</h2>
+            <NavBar />
+            <div className={`${s['form-container']}`}>
+                <form onSubmit={handleSubmit}>
+                    <h2>Agregar Mascota</h2>
 
-                <div>
-                    <label>Nombre:</label>
-                    <input
-                        type="text"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleInputChange}
-                    />
-                    {error.name && <span className={s.errorMessage}>{error.name}</span>}
-                </div>
-
-                <div>
-                        <label>Imagen:</label>
-                        <ImageUploader
-                            withIcon={true}
-                            buttonText='Selecciona una imagen'
-                            onChange={(file) => setFormData((prevFormData) => ({ ...prevFormData, image: file }))}
-                            imgExtension={['.jpg', '.gif', '.png', '.gif']}
-                            maxFileSize={5242880}
+                    <div>
+                        <label>Nombre:</label>
+                        <input
+                            type="text"
+                            name="name"
+                            value={formData.name}
+                            onChange={handleInputChange}
                         />
+                        {error.name && <span className={s.errorMessage}>{error.name}</span>}
+                    </div>
+
+                    <div>
+                        <label>Imagen:</label>
+                        <BrowseFileUpdate onImageUpload={handleImageUpload} />
                         {error.image && <span className={s.errorMessage}>{error.image}</span>}
                     </div>
 
-                <div>
-                    <label>Altura Mínima:</label>
-                    <input
-                        type="number"
-                        name="height_min"
-                        value={formData.height_min}
-                        onChange={handleInputChange}
-                    />
-                    {error.height_min && <span className={s.errorMessage}>{error.height_min}</span>}
-                </div>
+                    <div>
+                        <label>Altura Mínima:</label>
+                        <input
+                            type="number"
+                            name="height_min"
+                            value={formData.height_min}
+                            onChange={handleInputChange}
+                        />
+                        {error.height_min && <span className={s.errorMessage}>{error.height_min}</span>}
+                    </div>
 
-                <div>
-                    <label>Altura Máxima:</label>
-                    <input
-                        type="number"
-                        name="height_max"
-                        value={formData.height_max}
-                        onChange={handleInputChange}
-                    />
-                    {error.height_max && <span className={s.errorMessage}>{error.height_max}</span>}
-                </div>
+                    <div>
+                        <label>Altura Máxima:</label>
+                        <input
+                            type="number"
+                            name="height_max"
+                            value={formData.height_max}
+                            onChange={handleInputChange}
+                        />
+                        {error.height_max && <span className={s.errorMessage}>{error.height_max}</span>}
+                    </div>
 
-                <div>
-                    <label>Peso Mínimo:</label>
-                    <input
-                        type="number"
-                        name="weight_min"
-                        value={formData.weight_min}
-                        onChange={handleInputChange}
-                    />
-                    {error.weight_min && <span className={s.errorMessage}>{error.weight_min}</span>}
-                </div>
+                    <div>
+                        <label>Peso Mínimo:</label>
+                        <input
+                            type="number"
+                            name="weight_min"
+                            value={formData.weight_min}
+                            onChange={handleInputChange}
+                        />
+                        {error.weight_min && <span className={s.errorMessage}>{error.weight_min}</span>}
+                    </div>
 
-                <div>
-                    <label>Peso Máximo:</label>
-                    <input
-                        type="number"
-                        name="weight_max"
-                        value={formData.weight_max}
-                        onChange={handleInputChange}
-                    />
-                    {error.weight_max && <span className={s.errorMessage}>{error.weight_max}</span>}
-                </div>
+                    <div>
+                        <label>Peso Máximo:</label>
+                        <input
+                            type="number"
+                            name="weight_max"
+                            value={formData.weight_max}
+                            onChange={handleInputChange}
+                        />
+                        {error.weight_max && <span className={s.errorMessage}>{error.weight_max}</span>}
+                    </div>
 
-                <div>
-                    <label>Vida Mínima:</label>
-                    <input
-                        type="number"
-                        name="life_span_min"
-                        value={formData.life_span_min}
-                        onChange={handleInputChange}
-                    />
-                    {error.life_span_min && <span className={s.errorMessage}>{error.life_span_min}</span>}
-                </div>
+                    <div>
+                        <label>Vida Mínima:</label>
+                        <input
+                            type="number"
+                            name="life_span_min"
+                            value={formData.life_span_min}
+                            onChange={handleInputChange}
+                        />
+                        {error.life_span_min && <span className={s.errorMessage}>{error.life_span_min}</span>}
+                    </div>
 
-                <div>
-                    <label>Vida Máxima:</label>
-                    <input
-                        type="number"
-                        name="life_span_max"
-                        value={formData.life_span_max}
-                        onChange={handleInputChange}
-                    />
-                    {error.life_span_max && <span className={s.errorMessage}>{error.life_span_max}</span>}
-                </div>
+                    <div>
+                        <label>Vida Máxima:</label>
+                        <input
+                            type="number"
+                            name="life_span_max"
+                            value={formData.life_span_max}
+                            onChange={handleInputChange}
+                        />
+                        {error.life_span_max && <span className={s.errorMessage}>{error.life_span_max}</span>}
+                    </div>
 
-                <div>
-                    <label>Descripción:</label>
-                    <textarea
-                        name="descripcion"
-                        value={formData.descripcion}
-                        onChange={handleInputChange}
-                    />
-                    {error.description && <span className={s.errorMessage}>{error.description}</span>}
-                </div>
+                    <div>
+                        <label>Descripción:</label>
+                        <textarea
+                            name="descripcion"
+                            value={formData.descripcion}
+                            onChange={handleInputChange}
+                        />
+                        {error.description && <span className={s.errorMessage}>{error.description}</span>}
+                    </div>
 
-                <div>
-                    <label>Temperamentos:</label>
-                    <select onChange={handleTemperamentSelect}>
-                        {temperaments.map((temperament) => (
-                            <option key={temperament.id} value={temperament.name}>
-                                {temperament.name}
-                            </option>
-                        ))}
-                    </select>
-                    <ul>
-                        {formData?.temperaments.map((temperament) => (
-                            <li key={temperament}>{temperament}</li>
-                        ))}
-                    </ul>
-                </div>
+                    <div>
+                        <label>Temperamentos:</label>
+                        <select onChange={handleTemperamentSelect}>
+                            {temperaments.map((temperament) => (
+                                <option key={temperament.id} value={temperament.name}>
+                                    {temperament.name}
+                                </option>
+                            ))}
+                        </select>
+                        <ul>
+                            {formData?.temperaments.map((temperament) => (
+                                <li key={temperament}>{temperament}</li>
+                            ))}
+                        </ul>
+                    </div>
 
-                <button className={s['submit-button']} type="submit">
-                    Agregar Mascota
+                    <button className={s['submit-button']} type="submit">
+                        Agregar Mascota
+                    </button>
+                </form>
+                <button className={s['backBtn']}>
+                    <Link className={s['link']} to="/dogs">Volver a la lista de perros</Link>
                 </button>
-            </form>
-            <button className={s['backBtn']}>
-                <Link className={s['link']} to="/dogs">Volver a la lista de perros</Link>
-            </button>
-        </div>
-         </>
+            </div>
+        </>
     );
 };
 
