@@ -5,7 +5,7 @@ import s from './create.module.css';
 import { useHistory } from 'react-router-dom';
 import { getTemperaments, addDog } from '../../redux/actions';
 import NavBar from '../../components/nav/NavBar';
-
+import ImageUploader from 'react-image-upload';
 const AddDogsForm = () => {
     const dispatch = useDispatch();
     const history = useHistory();
@@ -151,15 +151,16 @@ const AddDogsForm = () => {
                 </div>
 
                 <div>
-                    <label>Imagen:</label>
-                    <input
-                        type="file"
-                        name="image"
-                        accept="image/*"
-                        onChange={handleImageUpload}
-                    />
-                    {error.image && <span className={s.errorMessage}>{error.image}</span>}
-                </div>
+                        <label>Imagen:</label>
+                        <ImageUploader
+                            withIcon={true}
+                            buttonText='Selecciona una imagen'
+                            onChange={(file) => setFormData((prevFormData) => ({ ...prevFormData, image: file }))}
+                            imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                            maxFileSize={5242880}
+                        />
+                        {error.image && <span className={s.errorMessage}>{error.image}</span>}
+                    </div>
 
                 <div>
                     <label>Altura Mínima:</label>
