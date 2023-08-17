@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import s from './create.module.css';
 import { useHistory } from 'react-router-dom';
 import { getTemperaments, addDog } from '../../redux/actions';
 import NavBar from '../../components/nav/NavBar';
-import BrowseFileUpdate from './BrowseFileUpdate';
+
+
 const AddDogsForm = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const temperaments = useSelector((state) => state.temperaments);
+    const [imagePreview, setImagePreview] = useState('');
+    const [imageFile, setImageFile] = useState(null);
 
     const [error, setErrors] = useState({});
 
@@ -49,12 +53,7 @@ const AddDogsForm = () => {
         }));
     }
 
-    const handleImageUpload = (imageUrl) => {
-        setFormData((prevFormData) => ({
-            ...prevFormData,
-            image: imageUrl,
-        }));
-    };;
+
 
     function validate(data) {
         let errors = {};
@@ -86,6 +85,29 @@ const AddDogsForm = () => {
 
         return errors;
     }
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        setImageFile(file);
+        setImagePreview(URL.createObjectURL(file));
+    };
+
+    const handleImageUpload = async () => {
+        if (!imageFile) return;
+
+        const imageData = new FormData();
+        imageData.append('file', imageFile);
+
+        try {
+            const response = await axios.post('/create', imageData); // Ajusta la ruta según tu configuración
+            setFormData((prevFormData) => ({
+                ...prevFormData,
+                image: response.data.secure_url,
+            }));
+            setImagePreview(response.data.secure_url);
+        } catch (error) {
+            console.log(error.response ? error.response.data : error);
+        }
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -151,8 +173,10 @@ const AddDogsForm = () => {
 
                     <div>
                         <label>Imagen:</label>
-                        <BrowseFileUpdate onImageUpload={handleImageUpload} />
+                        <input type="file" onChange={handleImageChange} />
                         {error.image && <span className={s.errorMessage}>{error.image}</span>}
+                        {imagePreview && <img src={imagePreview} alt="Uploaded preview" />}
+                        <button onClick={handleImageUpload}>Subir Imagen</button>
                     </div>
 
                     <div>

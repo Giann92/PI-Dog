@@ -40,10 +40,10 @@ const getDbInfo = async () => {
     });
 
     const dogsInfo = result.map((dog) => {
-      const imageBase64 = dog.image;
+
       return {
         id: dog.id,
-        image:imageBase64,
+        image: dog.image,
         name: dog.name,
         temperament: dog.temperaments.map((temperament) => temperament.name).join(', '),
         life_span: dog.life_span,
@@ -158,11 +158,11 @@ const getDogDbById = async (id) => {
 console.log(dog);
       if (dog) {
        
-        const imageBase64 = dog.image;
+        
         const dogDb = {
           id: dog.idDog,
           name: dog.name,
-          image:imageBase64,
+          image: dog.image,
           temperament: dog.temperaments.map((temperament) => temperament.name).join(', '),
           weight: dog.weight,
           height: dog.height,
