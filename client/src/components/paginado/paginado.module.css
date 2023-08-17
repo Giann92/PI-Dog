@@ -39,23 +39,23 @@
   
   .btn:hover {
     cursor: pointer;
-    background-color: seagreen;
+    background-color: white;
     color: rgb(8, 8, 8);
   }
   
   .btn:disabled {
-    background-color: seagreen;
+    background-color: white;
     color: black;
   }
   
   .btnNP:hover {
     cursor: pointer;
-    background-color: seagreen;
+    background-color: white;
     color: rgb(8, 8, 8);
   }
   
   .currentPage {
-    background-color: seagreen;
+    background-color: white;
     color: rgb(8, 8, 8);
   }
   
