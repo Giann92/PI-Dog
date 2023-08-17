@@ -1,3 +1,4 @@
+const multer = require('multer');
 const { getDogApiById, getDogApiByName, getDogDbByName, getAllDogs, getDogDbById } = require('../controllers/getDogs');
 const { Dog, Temperament } = require('../db');
 

@@ -8,7 +8,10 @@ import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-axios.defaults.baseURL = "https://pi-dog-production-7a02.up.railway.app/";
+const url = "https://pi-dog-production-7a02.up.railway.app/"// eslint-disable-next-line 
+const local = 'http://localhost:3001'
+
+axios.defaults.baseURL = url;
 const backgroundImages = {
   '/': 'https://helios-i.mashable.com/imagery/articles/07CIEf4aHNEhXeK7MSpNYt5/hero-image.fill.size_1248x702.v1648747007.jpg',
   '/dogs': 'https://t3.ftcdn.net/jpg/05/52/99/70/360_F_552997034_k5EkYzAnUnZVpnsbuQHz1ue4QJCWdDsV.jpg'
