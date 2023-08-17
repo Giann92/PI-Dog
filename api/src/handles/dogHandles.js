@@ -65,60 +65,45 @@ const createDogs = async (req, res) => {
       life_span_min,
       life_span_max,
       temperaments,
+      image,
       descripcion,
     } = req.body;
     const temperamentsArray = Array.isArray(temperaments) ? temperaments : [temperaments];
 
-    // Subir la imagen con Multer
-    const storage = multer.diskStorage({
-      destination: './uploads/dog-images',
-      filename: (req, file, cb) => {
-        cb(null, Date.now() + '-' + file.originalname);
-      },
+    // Crear el nuevo perro en la base de datos
+    const newDog = await Dog.create({
+      name,
+      height: `${height_min} - ${height_max} cm`,
+      weight: `${weight_min} - ${weight_max} kg`,
+      life: `${life_span_min} - ${life_span_max} years`,
+      image, // Asignamos directamente la imagen de la solicitud
+      descripcion,
     });
-    const upload = multer({ storage }).single('image');
-    upload(req, res, async (err) => {
-      if (err) {
-        console.log('Error uploading image', err);
-        return res.status(500).json({ message: 'Failed to upload image' });
-      }
 
-      const imageFilePath = req.file.path;
-
-      // Crear el nuevo perro en la base de datos
-      const newDog = await Dog.create({
-        name,
-        height: `${height_min} - ${height_max} cm`,
-        weight: `${weight_min} - ${weight_max} kg`,
-        life: `${life_span_min} - ${life_span_max} years`,
-        image: imageFilePath,
-        descripcion,
-      });
-
-      const dogTemperaments = await Temperament.findAll({
-        where: { name: temperamentsArray },
-      });
-
-      await newDog.setTemperaments(dogTemperaments);
-
-      const dogResult = await Dog.findOne({
-        where: { id: newDog.id },
-        include: [
-          {
-            model: Temperament,
-            attributes: ['name'],
-            through: { attributes: [] },
-          },
-        ],
-      });
-
-      res.status(201).json(dogResult);
+    const dogTemperaments = await Temperament.findAll({
+      where: { name: temperamentsArray },
     });
+
+    await newDog.setTemperaments(dogTemperaments);
+
+    const dogResult = await Dog.findOne({
+      where: { id: newDog.id },
+      include: [
+        {
+          model: Temperament,
+          attributes: ['name'],
+          through: { attributes: [] },
+        },
+      ],
+    });
+
+    res.status(201).json(dogResult);
   } catch (error) {
     console.log('Error creating dog', error);
     res.status(500).json({ message: 'Failed to create dog' });
   }
 };
+
 
 
 module.exports = {
